@@ -11,9 +11,7 @@ mongoose.set("strictQuery", false);
 
 const connectToDB = async () => {
   try {
-    const connection = await mongoose.connect(process.env.MONGO_URI);
-
-    // console.log(process.env.MONGO_URI, "mongo uri");
+    const { connection } = await mongoose.connect(process.env.MONGO_URI);
 
     if (connection) {
       console.log(`connected to mongodb: ${connection.host}`);

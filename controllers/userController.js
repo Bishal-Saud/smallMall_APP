@@ -5,13 +5,13 @@ import AppError from "../utils/error.utils.js";
  * @Register @Flow
  * * */
 
-const cookieOptions = {
-  maxAge: 7 * 24 * 60 * 60 * 1000, //7days
-  httpOnly: true,
-  secure: true,
-};
+// const cookieOptions = {
+//   maxAge: 7 * 24 * 60 * 60 * 1000, //7days
+//   httpOnly: true,
+//   secure: true,
+// };
 
-const register = async () => {
+const register = async (req, res, next) => {
   try {
     const { fullName, email, password } = req.body;
     if (!fullName || !email || !password) {
@@ -35,8 +35,8 @@ const register = async () => {
     await user.save();
     user.password = undefined;
 
-    const token = await user.generateJWTtoken();
-    res.cookie("token", token, cookieOptions);
+    // const token = await user.generateJWTtoken();
+    // res.cookie("token", token, cookieOptions);
     res.status(200).json({
       success: true,
       message: "User register Successfully",
@@ -57,9 +57,9 @@ const login = async (req, res, next) => {
     if (!user || !user.comparePassword(password)) {
       return new next(new AppError("Email or Password doesn't match", 400));
     }
-    const token = await user.generateJWTtoken();
-    user.password = undefined;
-    res.cookie("token", token, cookieOptions);
+    // const token = await user.generateJWTtoken();
+    // user.password = undefined;
+    // res.cookie("token", token, cookieOptions);
     res.status(200).json({
       success: true,
       message: "User login Successfully",
